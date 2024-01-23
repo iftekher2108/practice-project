@@ -6,11 +6,12 @@ use App\Models\product;
 use App\Http\Requests\StoreproductRequest;
 use App\Http\Requests\UpdateproductRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
-use Intervention\Image\Drivers\Gd\Driver as gdDriver;
-use Intervention\Image\Drivers\Imagick\Driver;
+// use Intervention\Image\Drivers\Gd\Driver as gdDriver;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Drivers\Imagick\Driver;
 
 class ProductController extends Controller
 {
@@ -83,22 +84,38 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name' => 'string|required',
-            'picture' => 'image|mimes:png,jpeg,gif,jpg|size:1024|nullable',
+            'picture' => 'image|mimes:png,jpeg,gif,jpg|max:1024|nullable',
             'email' =>'required',
             'password'=> 'required',
         ]);
 
-       $driver = new ImageManager(new Driver());
+        $driver = new ImageManager(new Driver);
 
         if(isset($request->picture)) {
-            $image = $driver->read($request->picture);
-            $image->resize(50,50);
-            $file_path = public_path('uploads/images/');
-            $thumb_path = public_path('uploads/images/thumb');
-            $filename = time().'.'. $request->picture->extension();
-            $request->picture->move($file_path,$filename);
-            $image->save($thumb_path.$filename);
+            $file_path =storage_path('public/uploads/images');
+            $thumb_path = storage_path('public/uploads/images/thumb');
+            $filename = time().'.'. $request->file('picture')->extension();
 
+            // $request->picture->copy($file_path.'/'.$filename,$thumb_path.'/'. $filename);
+
+            $request->file('picture')->storeAs('uploads/images',$filename,'public');
+
+            Storage::copy('public/uploads/images/'.$filename,'public/uploads/images/thumb/'.$filename);
+
+            // orginal file
+            $path = 'public/uploads/images/'.$filename;
+            $image = $driver->read($path);
+            $image->resize(400,400);
+            $image->save($path);
+            // orginal file
+
+
+           // thumb file
+            $place_path = 'public/uploads/images/thumb/'.$filename;
+            $img = $driver->read($place_path);
+            $thumb = $img->resize(50,50);
+            $thumb->save($place_path);
+           // thumb file
 
         }
 
@@ -112,10 +129,14 @@ class ProductController extends Controller
 
      }
 
+
+
      public function editUser($id) {
         $user =product::find($id);
         return view('edit',compact('user'));
      }
+
+
 
     public function userEdit(Request $request,$id) {
         $user = product::find($id);

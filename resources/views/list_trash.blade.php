@@ -33,6 +33,7 @@
                 <tr>
                     <th><input type="checkbox" class="bg-danger select-all"></th>
                     <th scope="col">id</th>
+                    <td scope='col'>picture</td>
                     <th scope="col">name</th>
                     <th scope="col">email</th>
                     <th scope="col">password</th>
@@ -47,6 +48,7 @@
                         <tr>
                             <td><input type="checkbox" id="{{ $user->id }}" class="select-item"></td>
                             <th scope="row">{{ $user->id }}</th>
+                            <td><img src="{{ asset(url('uploads/images/thumb',$user->picture)) }}" alt="picture"></td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->password }}</td>
