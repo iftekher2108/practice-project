@@ -143,6 +143,13 @@ class ProductController extends Controller
     }
 
 
+    public function image() {
+        return view('image');
+    }
+
+    public function dropjone() {
+        return view('dropjone');
+    }
 
 
     /**

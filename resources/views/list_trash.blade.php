@@ -95,7 +95,13 @@
         $('.delete-all').click(function(e){
             e.preventDefault()
             // console.log('iftekher mahmud')
-            allDataGet('parmanent-delete','parmanent-delete-all','danger')
+            if(confirm('are you sure you want to delete') === true) {
+              allDataGet('parmanent-delete','parmanent-delete-all','danger')
+            }
+            else {
+                alert('delete cancelled')
+            }
+
         })
 
         // select all data and request

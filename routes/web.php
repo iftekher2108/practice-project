@@ -32,6 +32,8 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('edit/{id}','editUser');
     Route::post('user-edit/{id}','userEdit');
 
+    Route::get('image','image');
+    Route::get('dropjone','dropjone');
 
 });
 
