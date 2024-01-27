@@ -34,6 +34,7 @@ Route::controller(ProductController::class)->group(function(){
 
     Route::get('image','image');
     Route::get('dropjone','dropjone');
+    Route::post('upload-image','uploadImage');
 
 });
 
