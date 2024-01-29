@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\product;
 use App\Http\Requests\StoreproductRequest;
 use App\Http\Requests\UpdateproductRequest;
+use App\Models\mediaPicture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
@@ -149,6 +150,16 @@ class ProductController extends Controller
 
     public function dropjone() {
         return view('dropjone');
+    }
+
+    public function uploadImage(Request $request) {
+        $media = new mediaPicture();
+
+        $driver = new ImageManager(new Driver());
+
+
+
+
     }
 
 

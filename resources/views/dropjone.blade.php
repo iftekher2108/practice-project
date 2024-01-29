@@ -2,7 +2,8 @@
 @section('content')
 
 
-    <form action="{{ url('') }}" method="post" id="my-dropzone" class="card d-flex dropzone" enctype="multipart/form-data">
+    <form action="{{ url('upload-image') }}" method="post" id="my-dropzone" class="card d-flex dropzone" enctype="multipart/form-data">
+    @csrf
     </form>
 
     <div class="dropjone-list my-5">
