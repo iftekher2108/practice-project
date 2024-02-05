@@ -148,16 +148,36 @@ class ProductController extends Controller
         return view('image');
     }
 
-    public function dropjone() {
-        return view('dropjone');
+    public function fileUpload() {
+        return view('fileUpload');
     }
 
+
     public function uploadImage(Request $request) {
+
+        // $driver = new ImageManager(new Driver());
+
+        $input = $request->all();
+		$rules = [
+		    'file' => 'image|max:3000',
+        ];
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails())
+		{
+			return Response()->make($validation->errors());
+		}
+
+		$file = $request->file('file');
+
+        $filename = time()."sp".rand(1,100).'.'.$file->extension();
+        $file->storeAs('uploads/images',$filename,'public');
         $media = new mediaPicture();
-
-        $driver = new ImageManager(new Driver());
-
-
+        $media->picture = $filename;
+        $media->save();
+        if($media->save()) {
+            return response()->json(['success'=>'picture uploaded successfully','picture'=> $media]);
+        }
 
 
     }

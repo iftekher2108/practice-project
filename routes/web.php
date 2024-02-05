@@ -33,7 +33,7 @@ Route::controller(ProductController::class)->group(function(){
     Route::post('user-edit/{id}','userEdit');
 
     Route::get('image','image');
-    Route::get('dropjone','dropjone');
+    Route::get('fileUpload','fileUpload');
     Route::post('upload-image','uploadImage');
 
 });
