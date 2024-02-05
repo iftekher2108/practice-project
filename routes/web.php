@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MediaPictureController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +33,14 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('edit/{id}','editUser');
     Route::post('user-edit/{id}','userEdit');
 
+
+
+});
+
+
+Route::controller(MediaPictureController::class)->group(function(){
     Route::get('image','image');
-    Route::get('fileUpload','fileUpload');
+    Route::get('dropjone','dropjone');
     Route::post('upload-image','uploadImage');
 
 });

@@ -1,0 +1,86 @@
+/* .dropzone,
+.dropzone * {
+    box-sizing: border-box;
+}
+
+.dropzone {
+    position: relative;
+}
+
+.dropzone .dz-preview {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    margin: 0.5em;
+}
+
+.dropzone .dz-preview .dz-progress {
+    display: block;
+    height: 15px;
+    border: 1px solid #aaa;
+}
+
+.dropzone .dz-preview .dz-progress .dz-upload {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: green;
+}
+
+.dropzone .dz-preview .dz-error-message {
+    color: red;
+    display: none;
+}
+
+.dropzone .dz-preview.dz-error .dz-error-message,
+.dropzone .dz-preview.dz-error .dz-error-mark {
+    display: block;
+}
+
+.dropzone .dz-preview.dz-success .dz-success-mark {
+    display: block;
+}
+
+.dropzone .dz-preview .dz-error-mark,
+.dropzone .dz-preview .dz-success-mark {
+    position: absolute;
+    display: none;
+    left: 30px;
+    top: 30px;
+    width: 54px;
+    height: 58px;
+    left: 50%;
+    margin-left: -27px;
+} */
+
+
+
+/* ===================================================================================== */
+
+
+.dropzone {
+	border-radius: 4px;
+	border: 2px dashed #0087f7 !important;
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em;
+}
+
+.dz-success-mark {
+	background-color: rgb( 102, 187, 106, .8 )!important;
+}
+
+.dz-success-mark svg {
+	font-size: 54px;
+	fill: #fff !important;
+}
+
+.dz-error-mark {
+	background-color: rgba( 239, 83, 80, .8 ) !important;
+}
+
+.dz-error-mark svg {
+	font-size: 54px;
+	fill: #fff !important;
+}

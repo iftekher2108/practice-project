@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\mediaPicture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MediaPictureController extends Controller
 {
@@ -15,51 +16,49 @@ class MediaPictureController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+
+    public function image() {
+        return view('image');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function dropjone() {
+        return view('dropjone');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(mediaPicture $mediaPicture)
-    {
-        //
+    public function uploadImage(Request $request) {
+
+        // $driver = new ImageManager(new Driver());
+
+        $input = $request->all();
+		$rules = [
+		    'file' => 'image|max:3000',
+        ];
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->fails())
+		{
+			return Response()->make($validation->errors());
+		}
+
+		$file = $request->file('file');
+
+        $filename = time()."sp".rand(1,100).'.'.$file->extension();
+        $file->storeAs('uploads/images',$filename,'public');
+        $media = new mediaPicture();
+        $media->picture = $filename;
+        $media->save();
+        if($media->save()) {
+            return response()->json(['success'=>'picture uploaded successfully','picture'=> $media]);
+        }
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(mediaPicture $mediaPicture)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, mediaPicture $mediaPicture)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(mediaPicture $mediaPicture)
-    {
-        //
-    }
+
+
+
+
+
+
 }
