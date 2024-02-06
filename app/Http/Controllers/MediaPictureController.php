@@ -39,14 +39,18 @@ class MediaPictureController extends Controller
 		{
 			return Response()->make($validation->errors());
 		}
+        $media = new mediaPicture();
+		$files = $request->file('file');
 
-		$file = $request->file('file');
-
+        foreach ($files as $file) {
         $filename = time()."sp".rand(1,100).'.'.$file->extension();
         $file->storeAs('uploads/images',$filename,'public');
-        $media = new mediaPicture();
+
+
+        }
         $media->picture = $filename;
-        $media->save();
+
+            $media->save();
         if($media->save()) {
             return response()->json(['success'=>'picture uploaded successfully','picture'=> $media]);
         }
