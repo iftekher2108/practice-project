@@ -31,7 +31,7 @@ class MediaPictureController extends Controller
 
         $input = $request->all();
 		$rules = [
-		    'file' => 'image|max:3000',
+		    // 'file' => 'image|max:3000',
         ];
 		$validation = Validator::make($input, $rules);
 
@@ -40,17 +40,23 @@ class MediaPictureController extends Controller
 			return Response()->make($validation->errors());
 		}
         $media = new mediaPicture();
-		$files = $request->file('file');
+		$file = $request->file('file');
+        $req_file = [];
 
-        foreach ($files as $file) {
-        $filename = time()."sp".rand(1,100).'.'.$file->extension();
-        $file->storeAs('uploads/images',$filename,'public');
-
-
+        foreach($file as $files)
+        {
+          $filename = time()."sp".rand(1,100).'.'.$files->extension();
+         $files->storeAs('uploads/images',$filename,'public');
+         $req_file[] = $filename;
         }
-        $media->picture = $filename;
 
-            $media->save();
+            // $data = explode(',',$filename);
+
+
+
+        $media->picture = json_encode($req_file);
+        // push($filename);
+        $media->save();
         if($media->save()) {
             return response()->json(['success'=>'picture uploaded successfully','picture'=> $media]);
         }

@@ -4,6 +4,7 @@
         <form action="{{ url('upload-image') }}" method="post" id="my-dropzone" class="card d-flex dropzone"
             enctype="multipart/form-data">
             @csrf
+            <input type="file" class="file" name="file[]" multiple >
         </form>
     </div>
 
@@ -28,22 +29,25 @@
         //     resizeQuality: 0.5,
         //     dictDefaultMessage: `Drag and Drop Image upload`,
         // });
-        Dropzone.options.dropzone = {
-            maxFilesize:20,
-            renameFile:function(file) {
-                var dt = new Date();
-                var time dt.getTime();
-                return time+file.name;
-            }
-            accepttedFiles:".jpeg,.jpg,.png,.gif,",
-            addRemoveLinks:true,
-            success:function(file,res) {
-               console.log(res)
-            },
-            error:function(file,res) {
-                return false;
-            }
-        }
+        $('.file').change(function(){
+            $('form').submit();
+        })
+        // Dropzone.options.dropzone = {
+        //     maxFilesize:20,
+        //     renameFile:function(file) {
+        //         var dt = new Date();
+        //         var time dt.getTime();
+        //         return time+file.name;
+        //     }
+        //     accepttedFiles:".jpeg,.jpg,.png,.gif,",
+        //     addRemoveLinks:true,
+        //     success:function(file,res) {
+        //        console.log(res)
+        //     },
+        //     error:function(file,res) {
+        //         return false;
+        //     }
+        // }
         // axios.get('/upload-image')
         //     .then(res => {
 
