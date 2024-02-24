@@ -58,7 +58,7 @@ class MediaPictureController extends Controller
         // push($filename);
         $media->save();
         if($media->save()) {
-            return response()->json(['success'=>'picture uploaded successfully','picture'=> $media]);
+            return response()->json(['success'=>'picture uploaded successfully', 'picture' => $media ]);
         }
 
     }
