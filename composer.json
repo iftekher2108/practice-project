@@ -7,8 +7,8 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.8.1",
-        "intervention/image-laravel": "^1.0.1",
-        "laravel/framework": "v10.43.0",
+        "intervention/image-laravel": "^1.1.0",
+        "laravel/framework": "v10.45.1",
         "laravel/sanctum": "^v3.3.3",
         "laravel/tinker": "^v2.9.0",
         "league/flysystem": "^3.24.0"

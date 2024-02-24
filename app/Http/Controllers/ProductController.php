@@ -93,28 +93,29 @@ class ProductController extends Controller
         $driver = new ImageManager(new Driver);
 
         if(isset($request->picture)) {
-            $file_path =storage_path('public/uploads/images');
-            $thumb_path = storage_path('public/uploads/images/thumb');
+            // $file_path =storage_path('public/uploads/images');
+            // $thumb_path = storage_path('public/uploads/images/thumb');
             $filename = time().'.'. $request->file('picture')->extension();
 
             // $request->picture->copy($file_path.'/'.$filename,$thumb_path.'/'. $filename);
 
             $request->file('picture')->storeAs('uploads/images',$filename,'public');
 
+            // Storage::makeDirectory('public/uploads/images/thumb');
+
             Storage::copy('public/uploads/images/'.$filename,'public/uploads/images/thumb/'.$filename);
 
             // orginal file
-            $path = 'public/uploads/images/'.$filename;
+            $path = 'storage/uploads/images/'.$filename;
             $image = $driver->read($path);
             $image->resize(400,400);
             $image->save($path);
             // orginal file
 
-
            // thumb file
-            $place_path = 'public/uploads/images/thumb/'.$filename;
+            $place_path = 'storage/uploads/images/thumb/'.$filename;
             $img = $driver->read($place_path);
-            $thumb = $img->resize(50,50);
+            $thumb = $img->resize(40,40);
             $thumb->save($place_path);
            // thumb file
 

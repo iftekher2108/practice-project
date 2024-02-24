@@ -10,7 +10,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     {{-- <link rel="stylesheet" href="{{ asset(url('plugins/dropjone/css/dropjone.css')) }}"> --}}
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    {{-- @vite(['resources/css/app.css','resources/js/app.js']) --}}
     {{-- <link rel="stylesheet" href="{{ asset('plugins/dropzone/dist/min/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/dropzone/dist/min/basic.min.css') }}"> --}}
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.0/basic.css" integrity="sha512-+Vla3mZvC+lQdBu1SKhXLCbzoNCl0hQ8GtCK8+4gOJS/PN9TTn0AO6SxlpX8p+5Zoumf1vXFyMlhpQtVD5+eSw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}

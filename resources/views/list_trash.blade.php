@@ -48,7 +48,7 @@
                         <tr>
                             <td><input type="checkbox" id="{{ $user->id }}" class="select-item"></td>
                             <th scope="row">{{ $user->id }}</th>
-                            <td><img src="{{ asset(url('uploads/images/thumb',$user->picture)) }}" alt="picture"></td>
+                            <td><img src="{{ asset(url('storage/uploads/images/thumb',$user->picture)) }}" alt="picture"></td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->password }}</td>
