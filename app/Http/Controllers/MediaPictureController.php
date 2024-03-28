@@ -22,7 +22,9 @@ class MediaPictureController extends Controller
     }
 
     public function dropjone() {
-        return view('dropjone');
+        $medias = mediaPicture::all();
+        // dd($medias);
+        return view('dropjone',compact('medias'));
     }
 
     public function uploadImage(Request $request) {
@@ -54,7 +56,7 @@ class MediaPictureController extends Controller
 
 
 
-        $media->picture = json_encode($req_file);
+        $media->picture = implode(',',$req_file);
         // push($filename);
         $media->save();
         if($media->save()) {

@@ -10,7 +10,15 @@
 
     <div class="dropjone-list my-5">
         <div class="d-flex gap-3">
-            <img src="" class="img-fluid" alt="picture">
+            @foreach ($medias as $media )
+            @foreach ($media->picture as $picture )
+                    {{ $Picture }}
+                     {{-- <img src="{{ asset('storage/uploads/images',) }}" class="img-fluid" alt="picture"> --}}
+            @endforeach
+                    {{ $media->picture}}
+                     {{-- <img src="{{ asset('storage/uploads/images',) }}" class="img-fluid" alt="picture"> --}}
+            @endforeach
+
         </div>
 
     </div>
@@ -48,8 +56,9 @@
                     console.log(res.picture.picture);
                    var fes_data = JSON.parse(res.picture.picture)
                     $.each(fes_data, function (key, value) {
-                            picture =`<img src="{{ asset('storage/uploads/images/`+value+`')}}" class="img-fluid" width="100" alt="picture">`
+                            picture =`<img src="{{ asset('public/uploads/images/`+value+`')}}" class="img-fluid" width="100" alt="picture">`
                             $('.dropjone-list div').append(picture)
+                            console.log(value)
                     });
 
 
