@@ -9,10 +9,9 @@ use App\Models\mediaPicture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
-// use Intervention\Image\Drivers\Gd\Driver as gdDriver;
+use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Drivers\Imagick\Driver;
 
 class ProductController extends Controller
 {
@@ -66,7 +65,7 @@ class ProductController extends Controller
         $product=product::withTrashed()->whereIn('id',$request->id);
         // return response()->json(['product' => $product]);
         $product->restore();
-        return response()->json(['restore_deleted_all'=>'restore all successfully'],);
+        return response()->json(['restore_deleted_all'=>'restore all successfully']);
     }
 
     // parmanently delete data
@@ -99,18 +98,21 @@ class ProductController extends Controller
 
             // $request->picture->copy($file_path.'/'.$filename,$thumb_path.'/'. $filename);
 
-            $request->file('picture')->storeAs('uploads/images',$filename,'public');
+           $request->file('picture')->storeAs('uploads/images',$filename,'public');
 
-            // Storage::makeDirectory('public/uploads/images/thumb');
 
-            Storage::copy('public/uploads/images/'.$filename,'public/uploads/images/thumb/'.$filename);
+            Storage::makeDirectory('public/uploads/images/thumb');
+           $file_copy = Storage::copy('public/uploads/images/'.$filename,'public/uploads/images/thumb/'.$filename);
 
             // orginal file
+            if($file_copy) {
             $path = 'storage/uploads/images/'.$filename;
             $image = $driver->read($path);
             $image->resize(400,400);
             $image->save($path);
             // orginal file
+            }
+
 
            // thumb file
             $place_path = 'storage/uploads/images/thumb/'.$filename;
@@ -141,7 +143,57 @@ class ProductController extends Controller
 
 
     public function userEdit(Request $request,$id) {
-        $user = product::find($id);
+
+        $product = product::find($id);
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'string|required',
+            'picture' => 'image|mimes:png,jpeg,gif,jpg|max:1024|nullable',
+            'email' =>'required',
+            'password'=> 'required',
+        ]);
+
+        $driver = new ImageManager(new Driver);
+
+        if(isset($request->picture)) {
+            // $file_path =storage_path('public/uploads/images');
+            // $thumb_path = storage_path('public/uploads/images/thumb');
+            $filename = time().'.'. $request->file('picture')->extension();
+
+            // $request->picture->copy($file_path.'/'.$filename,$thumb_path.'/'. $filename);
+
+           $request->file('picture')->storeAs('uploads/images',$filename,'public');
+
+
+            Storage::makeDirectory('public/uploads/images/thumb');
+           $file_copy = Storage::copy('public/uploads/images/'.$filename,'public/uploads/images/thumb/'.$filename);
+
+            // orginal file
+            if($file_copy) {
+            $path = 'storage/uploads/images/'.$filename;
+            $image = $driver->read($path);
+            $image->resize(400,400);
+            $image->save($path);
+            // orginal file
+            }
+
+
+           // thumb file
+            $place_path = 'storage/uploads/images/thumb/'.$filename;
+            $img = $driver->read($place_path);
+            $thumb = $img->resize(40,40);
+            $thumb->save($place_path);
+           // thumb file
+
+        }
+
+        $product->name = $request->name;
+        $product->picture = $filename;
+        $product->email = $request->email;
+        $product->password = $request->password;
+        $product->save();
+
+        return redirect('list')->with('create','user update successful');
     }
 
 
